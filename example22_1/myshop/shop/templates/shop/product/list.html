@@ -1,0 +1,81 @@
+{% extends "shop/ex.html" %}
+{% load static %}
+{% block title %}
+{% if category %}{{ category.name }}{% else %}Products{% endif %}
+{% endblock %}
+
+
+{% block content %}
+
+    <div id="sidebar" >
+        <h3 style="margin-bottom: 0; width: 200px; background: #c10960; text-align: center; height: 45px; line-height: 45px; color: white; border-radius: 10px;">Categories</h3>
+        <ul id="sidebar_ul">
+            <li {% if not category %} {% endif %} class="sidebar_li">
+                <a href="{% url "shop:product_list" %}"><strong>All</strong></a>
+            </li>
+        {% for c in categories %}
+            <li class="sidebar_li"
+                {% if category.slug == c.slug %}
+                {% endif %}  class="sidebar_li">
+                <a href="{{ c.get_absolute_url }}"><strong>{{ c.name }}</strong></a>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+    <div id="main">
+        <h1>{% if category %}{{ category.name }}{% else %}Sản Phẩm
+            {% endif %}</h1>
+            <div class="pagination">
+                <span class="step-links">
+                    {% if products.has_previous %}
+                        <a href="?page={{ products.previous_page_number }}" style="color: #c10960;"><strong>Pre</strong></a>
+                    {% endif %}
+                </span>
+             
+                <span class="current" style="color: #c10960;">
+                    <strong>{{ products.number }}</strong> of <strong>{{ products.paginator.num_pages }}</strong>.
+                </span>
+                 
+                <span>
+                    {% if products.has_next %}
+                        <a href="?page={{ products.next_page_number }}" style="color: #c10960;"><strong>Next</strong></a>
+                    {% endif %}
+                </span>
+            </div>
+        {% for product in products %}
+            <div class="item_list">
+                <a href="{{ product.get_absolute_url }}">
+                <img src="{% if product.image %}{{ product.image.url }}{% endif %}"
+                    style="width: 250px; height: 250px;">
+                </a>
+                <h3 style="margin-top: 10px; margin-bottom: 10px;"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h3>
+                <h4 style="color: #c10960; margin: 10px;">{{ product.price }} vnd</h4>
+                <form  action="{% url "cart:cart_add_list" product.id %}"  method="post">
+                    {{ cart_product_form }}
+                    {% csrf_token %}
+                    <button class = "btn_product_list" type="submit"><strong>ADD</strong></button> 
+                </form>
+                <br>
+            </div>
+        {% endfor %}
+        <div class="clear"></div>
+        <div class="pagination">
+            <span class="step-links">
+                {% if products.has_previous %}
+                    <a href="?page={{ products.previous_page_number }}" style="color: #c10960;"><strong>Pre</strong></a>
+                {% endif %}
+            </span>
+         
+            <span class="current" style="color: #c10960;">
+                <strong>{{ products.number }}</strong> of <strong>{{ products.paginator.num_pages }}</strong>.
+            </span>
+             
+            <span>
+                {% if products.has_next %}
+                    <a href="?page={{ products.next_page_number }}" style="color: #c10960;"><strong>Next</strong></a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+    <div class="clear"></div>
+{% endblock %}

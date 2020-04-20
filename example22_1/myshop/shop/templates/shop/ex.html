@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>{% block title %}My shop{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/ex.css' %}">
+    
+</head>
+<body>
+	<div id="container">
+		<div id="notice">
+			<h5 style="float: left; line-height: 40px; margin-top: 0; color: white; margin-left: 20px; margin-bottom: 0;">PHÒNG CHỐNG COVID-19, CHỈ BÁN HÀNG ONLINE</h5 >
+				<ul id="ul_notice">
+					<li><a href="{% url "user:register1"      %}" style="color: white;">Đăng ký</a></li>
+					<li><a href="{% url "user:login" %}" style="color: white;">Đăng nhập</a></li>
+					<li><a href="{% url "user:logout" %}"  style="color: white;"   >Đăng xuất</a></li>
+				</ul>
+		</div>
+		<div id="header">
+			<div id="image_shop">
+                <a href="/" ><img src="{% static 'img/logo2.png' %}" style="width: 180px; height: 180px; margin: 10px;"> </a>
+            </div>
+            <div id="name_shop">
+                <h1 style="color: white; margin-left: 30px; ">Tay Bac</h1>
+            </div>
+		</div>
+		<div id="subheader">
+			<div id="cart" style="width: 1180px; text-align: right; line-height: 40px; height: 50px;padding-right: 20px;">
+                <div id="user" style="float: left; margin-left: 20px;;">
+                    {% if user.is_authenticated  %}
+                       <strong> Tài khoản: {{ user.username }}</strong>
+                    {% else %}
+                        <strong>Chưa đăng nhập!</strong>
+                    {% endif %}
+                </div>
+            
+            {% with total_items=cart|length %}
+            {% if cart|length > 0 %}
+            <strong> Giỏ hàng /</strong> 
+                <a href="{% url "cart:cart_detail" %}" style="color: white;">
+                    <strong>{{ total_items }}</strong> item{{ total_items|pluralize }}
+                    <strong>{{ cart.get_total_price }} vnd</strong>
+                </a>
+            {% else %}
+            <strong>Giỏ hàng trống!</strong>
+            {% endif %}
+            {% endwith %}
+            </div>
+		</div>
+		<div id="content">
+			{% block content %}
+
+        	{% endblock %}
+		</div>
+		<div class="clear"></div>
+		<div id="footer">
+			<div class="box1">
+				<h4 class="address" style="margin-top: 10px;
+				margin-bottom: 0;">
+                    CÔNG TY CỔ PHẦN THỰC PHẨM TAM ĐƯỜNG 
+                </h4>
+                <p>- Uy tín chất lượng</p>
+                <p>- Lấy chữ tín làm đầu</p>
+            </div>
+            <div class="box2">
+                
+            </div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+{% extends "shop/ex.html" %}
+{% load static %}
+
+{% block title %}
+Your shopping cart
+{% endblock %}
+
+{% block content %}
+    <h1 style="margin-left: 50px;">Giỏ hàng của bạn !</h1>
+    <table class="content-table">
+        <thead > 
+            <tr style="height: 45px;" >
+                <th>Sản phẩm</th>
+                <th>Số lượng</th>
+                <th>Đơn giá</th>
+                <th>Thành tiền</th>
+            </tr>
+        </thead>
+        <tbody >
+            {% for item in cart %}
+                {% with product=item.product %}
+            <tr>
+                <td style="font-size: 15px;"  >{{ product.name }}</td>
+                <td>
+                    <form action="{% url "cart:cart_add" product.id %}" method="post">
+                        {{ item.update_quantity_form.quantity }}
+                        {{ item.update_quantity_form.update }}
+                        <button type="submit" id="update" >Update</button>
+                    {% csrf_token %}
+                    </form>
+                    </td>
+                
+                <td ><strong>{{ item.price }} VND</strong></td>
+                <td><strong>{{ item.total_price }} VND</strong></td>
+            </tr>
+                {% endwith %}
+            {% endfor %}
+        </tbody>
+    </table>
+    <div style="width: 1100px;height: 100px;">
+        <h2 style=" margin-left: 50px; float: left;"> Tổng hóa đơn: </h2>
+    <h2 style=" float:right; margin-right: 3px;">{{ cart.get_total_price }} VND</h2>
+    </div>
+    
+    <div style="width: 1100px; margin-top: 2px;">
+        <button style="float: right;">
+            <a href="{% url "shop:product_list" %}" >Continue shopping</a>
+        </button>
+        <button style="float: right;">
+            <a href="{% url "orders:orders" %}" ><strong>Checkout</strong></a>
+        </button>
+    </div>
+    <div class="clear"></div>
+{% endblock %}

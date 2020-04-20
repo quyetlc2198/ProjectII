@@ -1,0 +1,99 @@
+#container{
+    width: 1200px;
+    margin: auto;
+}
+
+
+.header{
+    width: 1200px;
+    height: 200px;
+    background: #c10960;
+}
+
+.logo{ 
+    font-size: larger;
+    text-align: center;
+    
+}
+#subheader{
+    background-color: #CCCCCC;
+    width: 1200px;
+    height: 100px;
+}
+.cart{
+    float: right;
+    font-size: 35px;
+    text-align: center;
+    margin-top: 20px;
+}
+.menu ul li{
+    display: inline-block;
+    margin-top: 35px;
+    text-align: center;
+    width: 172px;
+    float: left;
+}
+#sidebar{
+    margin-top: 20px;
+    width: 300px;
+    height: auto;
+    float: left;
+}
+
+
+#sidebar ul li{
+    margin-bottom: 5px;
+    
+}
+.selected{
+    text-decoration: none;
+}
+#main{
+    float: right;
+    width: 900px;
+    font-family: cursive;
+}
+.item{
+    float: left;
+    margin-left: 15px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+.item a{
+    text-decoration: none;
+}
+
+.product-detail{
+    margin-top: 20px;
+    float: left;
+    display: inline-block;
+    width: 1200px;
+    height: auto;
+}
+#information{
+    width: 760px;
+    float: right;
+    padding-left: 40px;
+}
+
+table{
+    border-collapse:collapse
+}
+
+.text-right{
+    float: right;
+    margin-top: 30px;
+}
+button{
+    background-color:white ;
+    font-size: 30px;
+    border-radius: 8px;
+    font-size: 1em;
+}
+.button:hover {
+    background-color: #99CCFF;
+    color: white;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+

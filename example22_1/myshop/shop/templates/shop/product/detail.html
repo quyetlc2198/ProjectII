@@ -1,0 +1,32 @@
+{% extends "shop/ex.html" %}
+{% load static %}
+{% block title %}
+{{ product.name }}
+{% endblock %}
+{% block content %}
+
+    <div id="product_detail">
+        <img style="width:350px; height:350px; margin-left:20px" 
+            src="{% if product.image %}{{ product.image.url }}{% endif %}">
+        <div class="information">
+            <h1 style="font-size: 50px;color: #c10960; margin: 5px;" >{{ product.name }}</h1>
+            <h2 style="padding-left: 10px;">
+                <a href="{{ product.category.get_absolute_url }}">{{product.category }}</a>
+            </h2>
+            <h2 style="padding-left: 20px; color: #c10960 ;">
+                {{ product.price }} VND
+            </h2>
+            <br>
+            <form class = "form_detail"action="{% url "cart:cart_add" product.id %}"  method="post">
+                {{ cart_product_form }}
+                {% csrf_token %}
+                <button type="submit">ADD TO CART</button> 
+            </form>
+           {{ product.description|linebreaks }}
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div id="relative"></div>
+    <div class="clear"></div>
+    
+{% endblock %}
