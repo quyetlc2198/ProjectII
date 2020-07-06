@@ -1,0 +1,22 @@
+{% extends "shop/ex.html" %}
+{% load static %}
+{% block title %}
+Register
+{% endblock %}
+{% block content %}
+<h1 style="margin-left: 30px; color: #c10960;" >Register</h1>
+<div id="img_regis">
+    <img src="{% static 'img/register.jpg' %}" style="width: 292px; height: 350px; margin-right: 100px;">
+</div>
+<div id="register">
+    <form  method="POST">
+        {% csrf_token %}
+        {{ form.as_p}}
+        <button class="btn_login" type="submit">
+            Đăng ký
+        </button>
+    </form>  
+</div>
+<div class="clear"></div>
+
+{% endblock%}

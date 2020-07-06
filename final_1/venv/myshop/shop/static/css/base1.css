@@ -1,0 +1,30 @@
+body{
+    
+}
+
+#container{
+    width: 1200px;
+    margin: auto;
+    min-height: 500px;
+    background : pink;
+}
+#notice{
+    width: 1200px;
+    height: 40px;
+    background: red;
+}
+#header{
+    background: blue;
+    height: 120px;
+}
+#subheader{
+    height: 40px;
+    background: red;
+}
+#content{
+    height: 600px;
+}
+#footer{
+    height: 200px;
+    background: red;
+}

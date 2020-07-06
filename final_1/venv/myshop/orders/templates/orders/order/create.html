@@ -1,0 +1,91 @@
+{% extends "shop/ex.html" %}
+{% block title %}
+Checkout
+{% endblock %}
+{% block content %}
+<h1 style="margin-left: 30px; color: #c10960;" >Checkout Details</h1>
+    <div id="" >
+        <form action="" method="post" class="order-form"    >
+            <h2 style="color:#c10960 ; margin-top: 10px;">Thông tin thanh toán</h2>
+            {% if user.is_authenticated %}
+                
+            {% else %}
+            <a href="{% url "user:register1"      %}">
+                <h5 style="color:#c10960; font-style: italic;">Bạn chưa có tài khoản? Đăng ký thành viên để giảm giá 2%</h5>
+            </a>
+            <a href="{% url "user:login"      %}">
+                <h5 style="color:#c10960; font-style: italic;">Bạn đã có tài khoản? Ấn vào đây để đăng nhập</h5>
+            </a>
+            {% endif %}
+            {% csrf_token %}
+            <label>Họ và tên*</label>
+            <br>
+            {{form.first_name}}
+            <br>
+            <label>Số điện thoại*</label>
+            <br>
+            {{form.contact}}
+            <br>
+            <label>Email*</label>
+            <br>
+            {{form.email}}
+            <br>
+            <label>Địa chỉ nhận hàng*</label>
+            <br>
+            {{form.address}}
+            <br>
+            <button type="submit " id="order_btn" style="margin-top: 30px;" >Đặt nhanh</button>
+        </form>
+    </div>
+    <div id="right" style="margin-right: 30px; min-height: 465px;border: 2px solid #c10960; padding-bottom: 40px;">
+        
+        <div class="order-info"  style="min-height: 300px;">
+            <h3 style="margin-left: 20px; color: #c10960;">ĐƠN HÀNG CỦA BẠN</h3>
+            <table class="checkout-table">
+                <thead>
+                    <tr>
+                        <th>Sản phẩm</th>
+                        <th>Tổng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart %}
+                        {% with product=item.product %}
+                    <tr>
+                        <td >{{ product.name }} <strong>x{{ item.quantity }}</strong></td>
+                        <td><strong>{{ item.total_price }} vnd</strong></td>
+                    </tr>
+                        {% endwith %}
+                    {% endfor %}
+                    <tr style="height: 40px;">
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    {% if user.is_authenticated %}
+                        <tr>
+                            <td><strong>Tạm tính:</strong></td>
+                            <td><strong>{{ cart.get_total_price }} vnd</strong></td>
+                        </tr>
+                        <tr>
+                        
+                            <td><strong>Giảm giá:</strong></td>
+                            <td><strong>2%</strong></td>
+                        
+                        </tr>
+                        <tr>
+                            <td><strong>Tổng:</strong></td>
+                            <td><strong>{{ cart.get_total_price_user }} vnd</strong></td>
+                        </tr>
+                    {% else %}
+                    <tr>
+                        <td><strong>Tổng:</strong></td>
+                        <td><strong>{{ cart.get_total_price }} vnd</strong></td>
+                    </tr>
+                    {% endif %}
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="clear"></div>
+{% endblock %}

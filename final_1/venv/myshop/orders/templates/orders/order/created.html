@@ -1,0 +1,17 @@
+{% extends "shop/ex.html" %}
+{% block title %}
+Thank you
+{% endblock %}
+{% block content %}
+    <div style="margin-left: 30px;">
+        {% if user.is_authenticated %}
+        <h1 style="color: #c10960;">Cảm ơn quý khách: {{ user.first_name}}</h1>
+    {% else %}
+    <h1 style="color: #c10960;">Cảm ơn quý khách !</h1>
+    {% endif %}
+    <p><strong>Đơn hàng của bạn đã được đặt thành công!</strong></p>
+    <p style="color: #c10960;">Tổng đơn hàng của bạn là : <strong>{{ order.total }} vnd</strong></p>
+    <p style="font-style: italic;">Nhân viên cửa hàng sẽ sớm liên hệ với bạn để hoàn tất đặt hàng!</p>
+    </div>
+    
+{% endblock %}

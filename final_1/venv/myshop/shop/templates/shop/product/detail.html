@@ -1,0 +1,56 @@
+{% extends "shop/ex.html" %}
+{% load static %}
+{% block title %}
+{{ product.name }}
+{% endblock %}
+{% block content %}
+
+    <div id="product_detail">
+        <img style="width:350px; height:350px; margin-left:20px" 
+            src="{% if product.image %}{{ product.image.url }}{% endif %}">
+        <div class="information">
+            <h1 style="font-size: 50px;color: #c10960; margin: 5px;" >{{ product.name }}</h1>
+            <h2 style="padding-left: 10px;">
+                <a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a>
+            </h2>
+            <h2 style="padding-left: 20px; color: #c10960 ;">
+                {{ product.price }} VND
+            </h2>
+            <br>
+            <form class = "form_detail" action="{% url "cart:cart_add" product.id %}"  method="post">
+                {{ cart_product_form }}
+                {% csrf_token %}
+                <button type="submit">ADD TO CART</button> 
+            </form>
+           {{ product.description|linebreaks }}
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div id="relative">
+        {% for product in products_list %}
+            <div class="item_list">
+                <div class="wrapper">
+                    <img src="{% if product.image %}{{ product.image.url }}{% endif %}"
+                    style="width: 250px; height: 140px;">
+                    <div class="overlay">
+                        <form  action="{% url "cart:cart_add_list" product.id %}"  method="post" >
+                            {{ cart_product_form }}
+                            {% csrf_token %}
+                            <button class = "btn_product_list" type="submit"><i class="fa fa-cart-plus" style="font-size:25px"></i></button> 
+                            <!-- <button class = "btn_product_list" type="submit"><strong>ADD</strong></button>  -->
+                        </form>
+                    </div>
+                </div>
+                <p style="margin-top: 150px; margin-bottom: 10px;font-family: Lato, sans-serif;font-size: 18px;line-height: 23px;"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></p>
+                    {% if product.price_sale != product.price %}
+                        <div style="color: #c10960;float:left;width: 100%;height: 40px;font-family: Lato, sans-serif;"><strike>{{ product.price }}đ </strike><strong>{{ product.price_sale }}đ</strong></div>
+                    {% else %}
+                        <div style="color: #c10960;height: 40px;font-family: Lato, sans-serif;"><strong>{{ product.price }}vnd</strong></div>
+                    {% endif %}    
+                <br>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="clear"></div>
+    
+{% endblock %}

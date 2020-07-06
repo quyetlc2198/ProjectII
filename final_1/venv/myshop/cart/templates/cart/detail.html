@@ -1,0 +1,55 @@
+{% extends "shop/ex.html" %}
+{% load static %}
+
+{% block title %}
+Your shopping cart
+{% endblock %}
+
+{% block content %}
+    <h1 style="margin-left: 50px;">Giỏ hàng của bạn !</h1>
+    <p>Cám ơn Quý Khách đã tin dùng & ủng hộ các sản phẩm do anh chị em chúng tôi khai thác & chế biến. Xin vui lòng điền các thông tin cần thiết ở bước kế tiếp để đặt hàng. Cần tư vấn thêm, xin vui lòng gọi hotline: 0914.268.535 (Thứ 2 -> thứ 7 từ 8:00 đến 21:00 | Chủ Nhật từ 8:30 đến 17:30)</p>
+    <table class="content-table">
+        <thead > 
+            <tr style="height: 45px;" >
+                <th>Sản phẩm</th>
+                <th>Số lượng</th>
+                <th>Xóa</th>
+                <th>Đơn giá</th>
+                <th>Thành tiền</th>
+            </tr>
+        </thead>
+        <tbody >
+            {% for item in cart %}
+                {% with product=item.product %}
+            <tr>
+                <td style="font-size: 15px;"  >{{ product.name }}</td>
+                <td>
+                    <form action="{% url "cart:cart_add" product.id %}" method="post">
+                        {{ item.update_quantity_form.quantity }}
+                        <button type="submit" id="update" >Update</button>
+                    {% csrf_token %}
+                    </form>
+                    </td>
+                
+                <td >{{ item.price }} VND</td>
+                <td>{{ item.total_price }} VND</td>
+            </tr>
+                {% endwith %}
+            {% endfor %}
+        </tbody>
+    </table>
+    <div style="width: 1100px;height: 100px;">
+        <h2 style=" margin-left: 50px; float: left;"> Tổng hóa đơn: </h2>
+    <h2 style=" float:right; margin-right: 3px;">{{ cart.get_total_price }} VND</h2>
+    </div>
+    
+    <div style="width: 1100px; margin-top: 2px;">
+        <button style="float: right;">
+            <a href="{% url "shop:product_list" %}" >Continue shopping</a>
+        </button>
+        <button style="float: right;">
+            <a href="{% url "orders:orders" %}" >Checkout</a>
+        </button>
+    </div>
+    <div class="clear"></div>
+{% endblock %}

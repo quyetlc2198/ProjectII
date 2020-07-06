@@ -1,0 +1,19 @@
+{% extends "shop/ex.html" %}
+{% load static %}
+{% block content%}
+<h1 style="margin-left: 30px; color: #c10960;" >Login</h1>
+<div id="img_login">
+    <img src="{% static 'img/login.jpg' %}" style="width: 292px; height: 350px; margin-left: 180px;">
+</div>
+<div id="login">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <input type="text" name="tendangnhap" value="user name" placeholder="Username" style="margin-bottom: 15px; height: 50px;">
+                <input type="password" name="password" value="password" placeholder="Password" style="margin-bottom: 15px; height: 50px;">
+                <button class="btn_login" type="submit" >Đăng nhập</button>
+            </form>
+    
+</div>
+
+<div class="clear"></div>
+{% endblock%}
